@@ -33,9 +33,11 @@ BIO<sub>19</sub>|Precipitation of Coldest Quarter
 ![Map of WorldClim Version 2](WorldClim2.png)
 
 
-In the final steps of the pipeline, the bioclimatically referenced occurrences are aggregated by *Species Key* using the mean value of each bioclimatic variable and linked back to their corresponding amino acid sequences according to the following relationships:
+Next, the bioclimatically referenced occurrences are aggregated by *Species Key* using the mean value of each bioclimatic variable and linked back to their corresponding amino acid sequences according to the following relationships:
 
 ![Relationship Diagram](Diagram1.png)
+
+Finally, the joined data is randomly sampled and posted back to the NCBI Protein database. Finally, a FASTA file containing protein sequences for the sampled data is downloaded and edited to include bioclimatic data in the definition line.
 
 # BASIL in Action
 In this example, we show how BASIL is used to bioclimatically reference all NBS-LRR proteins in the NCBI Protein database.
@@ -55,18 +57,29 @@ Once the pipeline is up and running, we are able to monitor the status of our ta
 
 ![Dependency Graph]( dependency-graph-screenshot.PNG)
 
-When the Central Scheduler shows that all tasks have completed successfully, our output data is saved in the file `data\joined-data.txt` and should look something like this:
+When the Central Scheduler shows that all tasks have completed successfully, our output data is saved in the file `data\edited-fasta.fasta` and should look something like this:
 
 ```
-UID, Taxonomy ID, Species Key, Phylum, Order, Family, Genus, Species, BIO1, …
-1492243987, 4540, 2705090, Tracheophyta, Poales, Poaceae, Panicum, Panicum miliaceum, 9.116, …
-1648102282, 39947, 2703459, Tracheophyta, Poales, Poaceae, Oryza, Oryza sativa, 23.161, …
-374276582, 112509, 2706056, Tracheophyta, Poales, Poaceae, Hordeum, Hordeum vulgare, 11.855, …
+>KFK29941.1|Arabis_alpina|3.065
+MAVTDFFAGEIAAELLKQLFLISAKAWRYKNIAERLIILIENIQPTIKEIQYSGVELPAHRQAQISMLSE
+ILTNGNKLTEKVISSRRWNMFRQLTLARKMERLEKTISDFLKAPILTQILADVHLLRANSDVRFDRVDRS
+LERMSEQLGSMKIGGGGLIMDAMKVAEAMMEIESSDELEKFGIGLDLGKTKVKKMMFACQGGVFGISGMG
+GVGKTTLARELEKDDEVRCYFENRILFLTVSQSPILDELRARVWSFLSGCEGVNPVPSWNLKYEGGVKMQ
+KLVILDDVWTREALDRLTYNIPGCTTLVVSRSKLTEPKFTYDVEVLKDDEALALFCLCAFGQKSVPPGFS
+HNLVKQVAGECKGLPLALKVTGASLKDRPEKYWEGALQRLSKGEPADETHETRLLHQMKASLENLDPITR
+ECFLDLGAFPEDKKIPVDVLINMWIEIHDLEEANAFATLVDLSHRNLLTLGKDPRLGASYASYYDVFVTQ
+HDVLRDLALHLCNQGKVTRRERLVMPKRELVLPREWGRNSDEPFKAQIVSIHTGEMDEMDWSDFDLEFPK
+AEILILNFSSDKYVLPPFISKMSRLRVLVIINNGMSHAVLHDFSIFANLSKLKSLWLERVHVPELSKTTV
+PLKNLHKMSLILCKINNSFDQTGVDLSNIFPNLNDLTIDHCDDLVTLPSSICGMTSLNSLSITNCPRLGA
+LPKNLSKLQALELLRLYACPELKALPLEICELPRLKYLDISQCGNLNCLPEEIGKLKMLEKIDMRECYIL
+RRPSSAVSLESLRHVLCDKDVAFIWEEVEKAVPGLKIEALEKCFSLDWLDE
 …
 ```
 
 ## Analysis
 Our query of the Protein database yielded 5,661 NBS-LRR proteins sequenced from 176 plant species. This indicates that 97% of the proteins represented either multiple sequences of the same species, sequences of synonymous species, sequences of varieties and subspecies, or sequences of species that did not occur within the bounds of the raster dataset.
+
+![Multiple Sequence Alignment](MSA.png)
 
 [1]: https://www.ncbi.nlm.nih.gov/protein
 [2]: https://doi.org/10.1016/S1369-5266(00)00080-7
